@@ -1,0 +1,53 @@
+START
+    PRINT "Enter the total bill amount"
+    INPUT bill_amt
+IF validate(bill_amt) == true THEN
+   PRINT "Quality of service received (poor, fair, good, or excellent)"
+   INPUT s_q
+IF validate_service(s_q) == true THEN
+  PRINT "Number of people splitting the bill"
+  INPUT n
+IF validate(n) == true THEN
+  PRINT "Bill amount:", bill_amt
+  PRINT "Service quality:", s_q
+
+tip_amt = calculate_tip(bill_amt, s_q)
+PRINT "Tip amount:", tip_amt
+total = tip_amt + bill_amt
+PRINT "Total amount:", total
+PRINT "Number of people:", n
+PRINT "Amount per person:", (total / n)
+ELSE
+    PRINT "Enter a valid number of people"
+ELSE
+   PRINT "Invalid service quality. Enter 'poor', 'fair', 'good', or 'excellent'."
+ELSE
+    PRINT "Enter a valid bill amount"
+END
+
+FUNCTION validate(value)
+    IF value > 0 THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+END FUNCTION
+
+FUNCTION validate_service(s_q)
+    CASE s_q
+        CASE "poor": RETURN true
+        CASE "fair": RETURN true
+        CASE "good": RETURN true
+        CASE "excellent": RETURN true
+        DEFAULT: RETURN false
+    END CASE
+END FUNCTION
+
+FUNCTION calculate_tip(bill_amt, s_q)
+    CASE s_q
+        CASE "poor": RETURN bill_amt * 0.10
+        CASE "fair": RETURN bill_amt * 0.15
+        CASE "good": RETURN bill_amt * 0.18
+        CASE "excellent": RETURN bill_amt * 0.20
+    END CASE
+END FUNCTION
